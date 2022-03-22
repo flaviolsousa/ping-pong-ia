@@ -32,4 +32,4 @@ while True:
       screen = pygame.display.set_mode(
           event.size, HWSURFACE | DOUBLEBUF | RESIZABLE)
       pygame.display.flip()
-  game.draw()
+  game.doStep()

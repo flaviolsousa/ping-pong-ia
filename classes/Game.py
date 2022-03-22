@@ -12,7 +12,7 @@ class Game:
   def __init__(self, windowSurface):
     self.player1 = Player(self, 1)
     self.player2 = Player(self, 2)
-    self.ball = Ball(self, self.player1, self.player2)
+    self.ball = Ball(self)
     self.windowSurface = windowSurface
 
   def __drawPoints(self):
@@ -29,7 +29,7 @@ class Game:
     points2Rect.topleft = (w/2+uw*2, uh)
     self.windowSurface.blit(points2, points2Rect)
 
-  def draw(self):
+  def doStep(self):
     w, h = pygame.display.get_surface().get_size()
     uw = w/100
     uh = h/100
