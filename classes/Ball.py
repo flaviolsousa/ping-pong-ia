@@ -32,10 +32,12 @@ class Ball:
     self.posX += self.velX * self.booster
     self.posY += self.velY * self.booster
 
-    if (self.posY + 2 > 100):
+    if (self.posY + 2 >= 100):
       self.velY *= -1
-    if (self.posY - 2 < 0):
+      self.posY -= 1
+    if (self.posY - 2 <= 0):
       self.velY *= -1
+      self.posY += 1
 
     if not self.finish:
       if uw*(self.posX+1) > self.game.player2.pw:
@@ -63,7 +65,7 @@ class Ball:
       if not -1 <= self.posX <= 101:
         self.restart(self.lastWinner)
 
-  def draw(self):
+  def doStep(self):
     (w, h, uw, uh) = self.game.scale
 
     self.move()

@@ -1,19 +1,18 @@
-from turtle import position
 import pygame
 
 
-class Player:
+class PlayerHuman:
 
   COLOR_PLAYERS = (255, 255, 255)
   STEP = 2
   PLAYERS_CONFIGS = [
       {
           'position': 25,
-          'keys': [pygame.K_a, pygame.K_z]
+          'name': "player1"
       },
       {
           'position': 75,
-          'keys': [pygame.K_UP, pygame.K_DOWN]
+          'name': "player2"
       }
   ]
 
@@ -21,17 +20,16 @@ class Player:
     self.game = game
     self.side = side
     self.config = self.PLAYERS_CONFIGS[side-1]
-    self.move = 0
     self.size = 20
     self.position = self.config['position'] - self.size/2
     self.points = 0
 
-  def draw(self):
-    keys = pygame.key.get_pressed()
+  def move(self):
+    self.position += (self.game.commands[self.config['name']]['down'] -
+                      self.game.commands[self.config['name']]['up']) * self.STEP
 
-    self.position += (keys[self.config['keys'][1]] -
-                      keys[self.config['keys'][0]]) * self.STEP
-
+  def doStep(self):
+    self.move()
     self.position = min(max(0, self.position), 100 - self.size)
 
     (w, h, uw, uh) = self.game.scale

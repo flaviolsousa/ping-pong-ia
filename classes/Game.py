@@ -1,6 +1,8 @@
+from typing import Dict
 import pygame
 
-from classes.Player import Player
+from classes.PlayerHuman import PlayerHuman
+from classes.PlayerIA import PlayerIA
 from classes.Ball import Ball
 
 
@@ -10,9 +12,20 @@ class Game:
   COLOR_POINTS = (255, 255, 255)
 
   def __init__(self, windowSurface):
-    self.player1 = Player(self, 1)
-    self.player2 = Player(self, 2)
+    self.player1 = PlayerIA(self, 1)
+    self.player2 = PlayerHuman(self, 2)
+    # self.player2 = PlayerIA(self, 2)
     self.ball = Ball(self)
+    self.commands = {
+        'player1': {
+            'up': True,
+            'down': False
+        },
+        'player2': {
+            'up': True,
+            'down': False
+        }
+    }
     self.windowSurface = windowSurface
 
   def __drawPoints(self):
@@ -30,6 +43,13 @@ class Game:
     self.windowSurface.blit(points2, points2Rect)
 
   def doStep(self):
+    keys = pygame.key.get_pressed()
+
+    self.commands['player1']['up'] = keys[pygame.K_a]
+    self.commands['player1']['down'] = keys[pygame.K_z]
+    self.commands['player2']['up'] = keys[pygame.K_UP]
+    self.commands['player2']['down'] = keys[pygame.K_DOWN]
+
     w, h = pygame.display.get_surface().get_size()
     uw = w/100
     uh = h/100
@@ -41,9 +61,9 @@ class Game:
     pygame.draw.line(self.windowSurface,
                      self.COLOR_CENTER_LINE, (w/2, 0), (w/2, h))
 
-    self.player1.draw()
-    self.player2.draw()
-    self.ball.draw()
+    self.player1.doStep()
+    self.player2.doStep()
+    self.ball.doStep()
     self.__drawPoints()
 
     # ball
