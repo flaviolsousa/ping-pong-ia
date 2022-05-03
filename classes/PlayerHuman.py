@@ -8,12 +8,16 @@ class PlayerHuman:
   PLAYERS_CONFIGS = [
       {
           'position': 25,
-          'name': "player1"
+          'name': "player1",
+          'posX': 1,
+          'bumpLine': 2
       },
       {
           'position': 75,
-          'name': "player2"
-      }
+          'name': "player2",
+          'posX': 98,
+          'bumpLine': 98
+      },
   ]
 
   def __init__(self, game, side):
@@ -22,6 +26,8 @@ class PlayerHuman:
     self.config = self.PLAYERS_CONFIGS[side-1]
     self.size = 20
     self.position = self.config['position'] - self.size/2
+    self.posX = self.config['posX']
+    self.bumpLine = self.config['bumpLine']
     self.points = 0
 
   def move(self):
@@ -33,7 +39,10 @@ class PlayerHuman:
     self.position = min(max(0, self.position), 100 - self.size)
 
     (w, h, uw, uh) = self.game.scale
-    self.pw = uw if self.side == 1 else w-uw*2
+    self.pw = self.posX*uw
+    self.ph = uh*self.position
+    self.sw = uh
+    self.sh = uh*self.size
 
     pygame.draw.rect(self.game.windowSurface, self.COLOR_PLAYERS,
-                     pygame.Rect(self.pw, uh*self.position, uw, uh*self.size))
+                     pygame.Rect(self.pw, self.ph, self.sw, self.sh))

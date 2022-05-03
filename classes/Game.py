@@ -13,16 +13,16 @@ class Game:
 
   def __init__(self, windowSurface):
     self.player1 = PlayerIA(self, 1)
-    self.player2 = PlayerHuman(self, 2)
-    # self.player2 = PlayerIA(self, 2)
+    # self.player2 = PlayerHuman(self, 2)
+    self.player2 = PlayerIA(self, 2)
     self.ball = Ball(self)
     self.commands = {
         'player1': {
-            'up': True,
+            'up': False,
             'down': False
         },
         'player2': {
-            'up': True,
+            'up': False,
             'down': False
         }
     }
