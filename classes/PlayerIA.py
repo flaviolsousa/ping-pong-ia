@@ -11,8 +11,9 @@ class PlayerIA (PlayerHuman):
     PlayerHuman.__init__(self, game, side)
 
   def move(self):
-    (w, h, uw, uh) = self.game.scale
-    factor = random.randint(0, 9)
+    # (w, h, uw, uh) = self.game.scale
+    # factor = random.randint(0, 9)
+
     safeAreaStart = self.position + self.size/10
     safeAreaEnd = safeAreaStart + self.size/10*8
     pName = self.config['name']

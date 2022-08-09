@@ -3,6 +3,7 @@ import pygame
 
 from classes.PlayerHuman import PlayerHuman
 from classes.PlayerIA import PlayerIA
+from classes.PlayerNN import PlayerNN
 from classes.Ball import Ball
 
 
@@ -12,9 +13,14 @@ class Game:
   COLOR_POINTS = (255, 255, 255)
 
   def __init__(self, windowSurface):
+    # self.player1 = PlayerHuman(self, 1)
     self.player1 = PlayerIA(self, 1)
+    # self.player1 = PlayerNN(self, 1)
+
     # self.player2 = PlayerHuman(self, 2)
-    self.player2 = PlayerIA(self, 2)
+    # self.player2 = PlayerIA(self, 2)
+    self.player2 = PlayerNN(self, 2)
+
     self.ball = Ball(self)
     self.commands = {
         'player1': {
@@ -64,6 +70,8 @@ class Game:
     self.player1.doStep()
     self.player2.doStep()
     self.ball.doStep()
+    self.player1.doLearn()
+    self.player2.doLearn()
     self.__drawPoints()
 
     # ball

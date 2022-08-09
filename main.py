@@ -1,11 +1,12 @@
 from curses.ascii import NUL
 import pygame
 import sys
-import os
 from pygame.locals import *
 from pygame._sdl2.video import Window
 
 from classes.Game import Game
+
+from config import FRAMES_PER_SECOND
 
 # Set up pygame
 pygame.init()
@@ -23,7 +24,7 @@ game = Game(windowSurface)
 
 # Run the game loop
 while True:
-  clock.tick(60)
+  clock.tick(FRAMES_PER_SECOND)
   for event in pygame.event.get():
     if event.type == QUIT:
       pygame.quit()

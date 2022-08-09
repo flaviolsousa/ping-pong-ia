@@ -40,7 +40,7 @@ class Ball:
       enemyPlayer = self.game.player1 if self.velX > 0 else self.game.player2
       playerL = Line(Point(player.bumpLine, player.position - 1),
                      Point(player.bumpLine, player.position + player.size + 1))
-      bumped = intersect(ballL, playerL)
+      self.bumped = intersect(ballL, playerL)
 
       if newY < 1:
         self.posY = 2 - newY
@@ -51,7 +51,7 @@ class Ball:
       else:
         self.posY = newY
 
-      if bumped:
+      if self.bumped:
         self.velX *= -1
         self.booster += 0.1
         colisionFactor = self.posY-player.position

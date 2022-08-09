@@ -31,8 +31,9 @@ class PlayerHuman:
     self.points = 0
 
   def move(self):
-    self.position += (self.game.commands[self.config['name']]['down'] -
-                      self.game.commands[self.config['name']]['up']) * self.STEP
+    pName = self.config['name']
+    self.position += (self.game.commands[pName]['down'] -
+                      self.game.commands[pName]['up']) * self.STEP
 
   def doStep(self):
     self.move()
@@ -46,3 +47,9 @@ class PlayerHuman:
 
     pygame.draw.rect(self.game.windowSurface, self.COLOR_PLAYERS,
                      pygame.Rect(self.pw, self.ph, self.sw, self.sh))
+
+  def doLearn(self):
+    self.learn()
+
+  def learn(self):
+    pass
