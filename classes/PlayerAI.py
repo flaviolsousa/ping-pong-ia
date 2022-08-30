@@ -3,9 +3,10 @@ import random
 from classes.PlayerHuman import PlayerHuman
 
 
-class PlayerIA (PlayerHuman):
+class PlayerAI (PlayerHuman):
 
-  STEP = PlayerHuman.STEP / 2
+  STEP = 1
+  NAME = "Artificial Intelligence"
 
   def __init__(self, game, side):
     PlayerHuman.__init__(self, game, side)

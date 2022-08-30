@@ -16,3 +16,9 @@ python3 main.py
 ```sh
 pip freeze > requirements.txt
 ```
+
+## Utils
+
+Reference Code: https://github.com/python-engineer/snake-ai-pytorch
+
+Reference Tutorial: https://www.youtube.com/watch?v=PJl4iabBEz0

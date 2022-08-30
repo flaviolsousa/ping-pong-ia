@@ -3,8 +3,9 @@ import pygame
 
 class PlayerHuman:
 
+  NAME = "Human"
   COLOR_PLAYERS = (255, 255, 255)
-  STEP = 2
+  STEP = 1.5
   PLAYERS_CONFIGS = [
       {
           'position': 25,
@@ -29,6 +30,7 @@ class PlayerHuman:
     self.posX = self.config['posX']
     self.bumpLine = self.config['bumpLine']
     self.points = 0
+    setattr(game, self.config['name'], self)
 
   def move(self):
     pName = self.config['name']

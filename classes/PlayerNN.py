@@ -9,7 +9,7 @@ import pygame
 from collections import deque
 from classes.model.model import Linear_QNet, QTrainer
 from classes.model.helper import plot
-from config import TRAINING, INITIAL_RECORD, LR, GAMMA, MAX_LOSSES, EXPLORATION_GAMES
+from config import FRAMES_PER_SECOND_TRAINING, INITIAL_RECORD, LR, GAMMA, MAX_LOSSES, EXPLORATION_GAMES
 
 
 class Commands(IntEnum):
@@ -31,8 +31,6 @@ DRAW_STATE = False
 
 MAX_MEMORY = 100_000
 BATCH_SIZE = 1000
-# LR = 0.001
-# LR = 0.0001
 
 INPUT_LAYER = 6  # NN input layer size
 # HIDDEN_LAYER = 256  # NN hidden layer size
@@ -40,11 +38,13 @@ HIDDEN_LAYER = INPUT_LAYER * 20  # NN hidden layer size
 
 
 class PlayerNN (PlayerHuman):
-  STEP = PlayerHuman.STEP / 2
 
-  def __init__(self, game, side):
+  NAME = "Neural Network DQL"
+  STEP = 1
+
+  def __init__(self, game, side, training):
     PlayerHuman.__init__(self, game, side)
-    self.training = TRAINING
+    self.training = training
     if self.training:
       self.watching = False
       self.record = INITIAL_RECORD
@@ -57,6 +57,7 @@ class PlayerNN (PlayerHuman):
       self.epsilon = 0  # randomness
       self.gamma = GAMMA  # discount rate
       self.memory = deque(maxlen=MAX_MEMORY)  # popleft()
+      game.framesPerSecond = FRAMES_PER_SECOND_TRAINING
 
     self.model = Linear_QNet(INPUT_LAYER, HIDDEN_LAYER, len(Commands))
     if self.training:
