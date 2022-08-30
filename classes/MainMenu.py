@@ -36,12 +36,12 @@ class MainMenu:
       return PlayerNN(self.game, side, True)
 
   def doStep(self):
-    w, h = pygame.display.get_surface().get_size()
-    uw = w/100
-    uh = h/100
-    self.scale = (w, h, uw, uh)
-
     if self.player1 == None or self.player2 == None:
+      w, h = pygame.display.get_surface().get_size()
+      uw = w/100
+      uh = h/100
+      self.scale = (w, h, uw, uh)
+
       self.processMenu()
       self.drawMenu()
       return False
@@ -53,29 +53,28 @@ class MainMenu:
 
     self.finish = keys[pygame.K_KP_ENTER] or keys[pygame.K_RETURN]
     if self.finish:
-      print("Selected")
       self.player1 = self.createPlayer(self.selected1, 1)
       self.player2 = self.createPlayer(self.selected2, 2)
+    else:
+      player1Up = keys[pygame.K_a] and not self.player1Up
+      player1Down = keys[pygame.K_z] and not self.player1Down
+      player2Up = keys[pygame.K_UP] and not self.player2Up
+      player2Down = keys[pygame.K_DOWN] and not self.player2Down
 
-    player1Up = keys[pygame.K_a] and not self.player1Up
-    player1Down = keys[pygame.K_z] and not self.player1Down
-    player2Up = keys[pygame.K_UP] and not self.player2Up
-    player2Down = keys[pygame.K_DOWN] and not self.player2Down
+      if player1Up:
+        self.selected1 = max(0, self.selected1 - 1)
+      elif player1Down:
+        self.selected1 = min(len(self.optionsPlayer1)-1, self.selected1 + 1)
 
-    if player1Up:
-      self.selected1 = max(0, self.selected1 - 1)
-    elif player1Down:
-      self.selected1 = min(len(self.optionsPlayer1)-1, self.selected1 + 1)
+      if player2Up:
+        self.selected2 = max(0, self.selected2 - 1)
+      elif player2Down:
+        self.selected2 = min(len(self.optionsPlayer2)-1, self.selected2 + 1)
 
-    if player2Up:
-      self.selected2 = max(0, self.selected2 - 1)
-    elif player2Down:
-      self.selected2 = min(len(self.optionsPlayer2)-1, self.selected2 + 1)
-
-    self.player1Up = keys[pygame.K_a]
-    self.player1Down = keys[pygame.K_z]
-    self.player2Up = keys[pygame.K_UP]
-    self.player2Down = keys[pygame.K_DOWN]
+      self.player1Up = keys[pygame.K_a]
+      self.player1Down = keys[pygame.K_z]
+      self.player2Up = keys[pygame.K_UP]
+      self.player2Down = keys[pygame.K_DOWN]
 
   def drawMenu(self):
     self.windowSurface.fill(0)

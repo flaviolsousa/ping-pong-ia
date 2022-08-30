@@ -9,7 +9,7 @@ import pygame
 from collections import deque
 from classes.model.model import Linear_QNet, QTrainer
 from classes.model.helper import plot
-from config import FRAMES_PER_SECOND_TRAINING, INITIAL_RECORD, LR, GAMMA, MAX_LOSSES, EXPLORATION_GAMES
+from config import FRAMES_PER_SECOND_TRAINING, INITIAL_RECORD, LR, GAMMA, MAX_LOSSES, EXPLORATION_GAMES, MAX_MEMORY, BATCH_SIZE
 
 
 class Commands(IntEnum):
@@ -28,9 +28,6 @@ class States(IntEnum):
 
 
 DRAW_STATE = False
-
-MAX_MEMORY = 100_000
-BATCH_SIZE = 1000
 
 INPUT_LAYER = 6  # NN input layer size
 # HIDDEN_LAYER = 256  # NN hidden layer size
